@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register New Account</title>
+</head>
+<body>
+    <table border="0" align="center" cellpadding="5" cellspacing="0" style="border-collapse:collapse;">
+        <tr>
+            <td colspan="2" style="background-color:#006699; color:white; font-weight:bold; text-align:center;">
+                REGISTER NEW ACCOUNT
+            </td>
+        </tr>
+        <form method="post" enctype="multipart/form-data">
+            <tr>
+                <td><i>Username</i></td>
+                <td><input type="text" name="username" /></td>
+            </tr>
+            <tr>
+                <td><i>Password</i></td>
+                <td><input type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td><i>Confirm password</i></td>
+                <td><input type="password" name="confirm_password" /></td>
+            </tr>
+            <tr>
+                <td><i>Gender</i></td>
+                <td>
+                        <input type="radio" name="gender" value="male" /> Male
+                        <input type="radio" name="gender" value="female" /> Female
+                </td>
+            </tr>
+            <tr>
+                <td><i>Phone</i></td>
+                <td><input type="text" name="phone" /></td>
+            </tr>
+            <tr>
+                <td><i>Email</i></td>
+                <td><input type="text" name="email" /></td>
+            </tr>
+            <tr>
+                <td><i>Favourite</i></td>
+                <td>
+                    <input type="checkbox" name="favourite" value="music" checked /> Music
+                    <input type="checkbox" name="favourite" value="reading" checked /> Reading
+                </td>
+            </tr>
+            <tr>
+                <td><i>Picture</i></td>
+                <td><input type="file" name="picture" /></td>
+            </tr>
+            <tr>
+                <td><i>Description</i></td>
+                <td><textarea name="description" rows="5" cols="30"></textarea></td>
+            </tr>
+            <tr>
+                <td><i>Education level</i></td>
+                <td>
+                    <select name="education">
+                        <option>Aptech</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><i>Language</i></td>
+                <td>
+                    <select name="language" multiple size="4">
+                        <option>Vietnamese</option>
+                        <option>English</option>
+                        <option>French</option>
+                        <option>Japanese</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <input type="submit" value="Register" />
+                    <input type="reset" value="Reset" />
+                </td>
+            </tr>
+        </form>
+    </table>
+</body>
+</html>

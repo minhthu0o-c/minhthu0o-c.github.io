@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JavaScript Example</h1>
+    <form action="#">
+        <input type="number" id="number1" placeholder="Enter first number">
+        <br>
+        <input type="number" id="number2" placeholder="Enter second number">
+        <br>
+        <button id="button1" onclick="addNumbers();">Submit</button> <br>
+        <label id="result"></label>
+
+    </form>
+
+    <script>
+        function addNumbers () {
+            const num1 = parseInt(document.getElementById('number1').value);
+            const num2 = parseInt(document.getElementById('number2').value);
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('result').innerText = "Please enter valid number for the input." + "Please try again!";
+                return;
+            }
+            document.getElementById('result').innerHTML = " Tổng: " + (num1 + num2) + "\n" + "Hiệu: " + (num1 - num2) + "\n" + "Tích: " + (num1 * num2);
+        }
+    </script>
+</body>
+</html>

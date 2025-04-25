@@ -1,0 +1,25 @@
+.product img {
+    width: 150px;
+    height: 150px; 
+    border-radius: 20px; 
+    box-shadow: 5px 5px 10px #aaa;
+}
+.product {
+    text-align: center;
+    width: 150px;
+    margin: 0px 20px;
+    float: left;
+    cursor: pointer;
+    }
+.product:hover .product-name {
+    display: block;
+}
+.product-flower {
+    font-weight: bold;
+}
+.product-price {
+    font-style: italic;
+}
+.product-price::before {
+    content: "-";
+}

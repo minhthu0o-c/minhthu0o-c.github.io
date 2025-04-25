@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check</title>
+</head>
+<body>
+    <form action="#" id="main_form">
+        <input type="number" id="number1">
+        <br>
+        <button onclick="checkNumber();" id="check_button">Check</button>
+        <button onclick="rs();" id="reset_button" style="display: none;">Reset</button>
+        <p id="result"></p>
+    </form>
+    <script>
+        var text = document.getElementById("result");
+        function checkNumber() {
+            document.getElementById("reset_button").style.display = "block";
+            var x = parseInt(document.getElementById("number1").value);
+            if (x % 2 == 0) {
+                text.innerHTML = x + " is <b>Even</b>";
+                text.style.color = "green";
+                var check_button = document.getElementById("check_button");
+                check_button.style.display = "none";
+            } else {
+                text.innerHTML = x + " is <b>Odd</b>";
+                text.style.color = "red";
+                var check_button = document.getElementById("check_button");
+                check_button.style.display = "none";
+            }
+        }
+        function rs() {
+            text.innerHTML = "";
+            document.getElementById("number1").value = "";
+            document.getElementById("reset_button").style.display = "none";
+            document.getElementById("check_button").style.display = "block";
+        }
+    </script>
+</body>
+</html>
