@@ -1,20 +1,93 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Left Menu</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
+    body {
+      font-family: 'Times New Roman', serif;
+    }
+    .menu-container {
+      width: 220px;
+      filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
+      border-radius: 25px 25px 5px 5px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #bfbfbf 0%, #f9f9f9 50%, #bfbfbf 100%);
+      box-shadow:
+        inset 0 2px 8px rgba(255,255,255,0.8),
+        inset 0 -2px 8px rgba(0,0,0,0.15),
+        0 6px 10px rgba(0,0,0,0.3);
+    }
+    .menu-header {
+      background: linear-gradient(to bottom, #4d4d4d, #000000);
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: white;
+      text-shadow: 0 0 3px #fff;
+      padding: 0.5rem 0;
+      user-select: none;
+      box-shadow:
+        inset 0 3px 6px rgba(255,255,255,0.3),
+        0 2px 4px rgba(0,0,0,0.6);
+    }
+    .menu-list {
+      background-color: white;
+      border: 1px solid black;
+      border-top: none;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .menu-list li {
+      padding: 0.5rem 1rem;
+      font-size: 1.125rem;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      user-select: none;
+      color: black;
+      font-weight: normal;
+      background-color: white;
+      transition: background-color 0.2s ease, color 0.2s ease, font-weight 0.2s ease;
+    }
+    .menu-list li i {
+      color: #00cc00;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+    }
+    .menu-list li:hover {
+      background-color: #ffff99;
+      color: red;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .menu-list li:hover i {
+      color: #00cc00;
+    }
+  </style>
 </head>
-<body>
-    <div class="menu">
-        <div>Menu</div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">About Us</a></li>
-        </ul>
-    </div>
+<body class="flex justify-center items-center min-h-screen bg-white">
+  <div class="menu-container">
+    <div class="menu-header select-none">MENU</div>
+    <ul class="menu-list">
+      <li><i class="fas fa-chevron-circle-right"></i>Home</li>
+      <li><i class="fas fa-chevron-circle-right"></i>Categories</li>
+      <li><i class="fas fa-chevron-circle-right"></i>Contact</li>
+      <li><i class="fas fa-chevron-circle-right"></i>About Us</li>
+    </ul>
+  </div>
 </body>
 </html>

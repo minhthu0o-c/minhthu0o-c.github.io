@@ -1,0 +1,188 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Million Dollar Home Listings</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-gray-200 font-sans">
+  <nav
+    class="bg-gray-100 flex items-center justify-between px-4 py-2 text-gray-700 text-sm"
+  >
+    <ul class="flex items-center space-x-1">
+      <li>
+        <a
+          class="bg-gray-200 px-3 py-1 rounded-sm font-normal text-gray-700"
+          href="#"
+          >House Bussiness</a
+        >
+      </li>
+      <li>
+        <a
+          class="px-3 py-1 rounded-sm font-normal text-gray-500 hover:text-gray-700"
+          href="#"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          class="px-3 py-1 rounded-sm font-normal text-gray-500 hover:text-gray-700"
+          href="#"
+          >Profile</a
+        >
+      </li>
+      <li>
+        <a
+          class="px-3 py-1 rounded-sm font-normal text-gray-500 hover:text-gray-700"
+          href="#"
+          >Messages</a
+        >
+      </li>
+    </ul>
+    <ul class="flex items-center space-x-4 text-gray-600 text-xs">
+      <li class="flex items-center space-x-1 cursor-pointer">
+        <i class="fas fa-user"></i>
+        <span>Sign Up</span>
+      </li>
+      <li class="flex items-center space-x-1 cursor-pointer">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </li>
+    </ul>
+  </nav>
+  <main class="p-6 max-w-7xl mx-auto">
+    <h1 class="text-2xl font-normal text-gray-900 mb-1">
+      Milion Dollar Home Listings
+    </h1>
+    <p class="text-xs text-gray-700 mb-4">Content</p>
+    <div id="listings" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  </main>
+
+  <script>
+    const listingsData = [
+      {
+        img: "https://storage.googleapis.com/a1aa/image/ea00e9e1-7097-49cf-b94b-4ab11d293fd3.jpg",
+        alt: "Red two-story house with porch and green lawn",
+        heading: "Media heading",
+        price: "$1.975.000",
+        sqft1: "4,820 SqFt",
+        sqft2: "4,820 SqFt",
+        baths: "5 Baths",
+        address: "609 W Gravers Ln",
+        content: "Conten of media heading",
+      },
+      {
+        img: "https://storage.googleapis.com/a1aa/image/aed7a392-35f1-49da-9d1d-ced877bd61b7.jpg",
+        alt: "White two-story house with porch and bushes in front",
+        heading: "Media heading",
+        price: "$1.975.000",
+        sqft1: "4,820 SqFt",
+        sqft2: "4,820 SqFt",
+        baths: "5 Baths",
+        address: "609 W Gravers Ln",
+        content: "Conten of media heading",
+      },
+      {
+        img: "https://storage.googleapis.com/a1aa/image/2849441c-a8a8-49cf-27d0-93d1747968b2.jpg",
+        alt: "White two-story house with front yard and sidewalk",
+        heading: "Media heading",
+        price: "$1.975.000",
+        sqft1: "4,820 SqFt",
+        sqft2: "4,820 SqFt",
+        baths: "5 Baths",
+        address: "609 W Gravers Ln",
+        content: "Conten of media heading",
+      },
+      {
+        img: "https://storage.googleapis.com/a1aa/image/95666725-bea9-4d96-90bd-8f3086da56e8.jpg",
+        alt: "Stone and stucco house with driveway and car",
+        heading: "Media heading",
+        price: "$1.975.000",
+        sqft1: "4,820 SqFt",
+        sqft2: "4,820 SqFt",
+        baths: "5 Baths",
+        address: "609 W Gravers Ln",
+        content: "Conten of media heading",
+      },
+    ];
+
+    function createListingCard(listing) {
+      const article = document.createElement("article");
+      article.className = "bg-white p-4 flex space-x-4";
+
+      const img = document.createElement("img");
+      img.src = listing.img;
+      img.alt = listing.alt;
+      img.width = 120;
+      img.height = 90;
+      img.className = "w-30 h-22 object-cover";
+
+      const div = document.createElement("div");
+      div.className = "flex-1";
+
+      const h2 = document.createElement("h2");
+      h2.className = "text-sm font-normal text-gray-700 mb-1";
+      h2.textContent = listing.heading;
+
+      const priceP = document.createElement("p");
+      priceP.className = "text-xs text-blue-700 mb-1";
+      priceP.textContent = listing.price;
+
+      const infoDiv = document.createElement("div");
+      infoDiv.className =
+        "flex items-center text-xs text-gray-600 mb-1 space-x-2";
+
+      const sqft1Span = document.createElement("span");
+      sqft1Span.textContent = listing.sqft1;
+
+      const sep1 = document.createElement("span");
+      sep1.textContent = "|";
+
+      const sqft2Span = document.createElement("span");
+      sqft2Span.textContent = listing.sqft2;
+
+      const sep2 = document.createElement("span");
+      sep2.textContent = "|";
+
+      const bathsSpan = document.createElement("span");
+      bathsSpan.textContent = listing.baths;
+
+      const addressSpan = document.createElement("span");
+      addressSpan.className =
+        "ml-auto bg-gray-600 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap";
+      addressSpan.textContent = listing.address;
+
+      infoDiv.appendChild(sqft1Span);
+      infoDiv.appendChild(sep1);
+      infoDiv.appendChild(sqft2Span);
+      infoDiv.appendChild(sep2);
+      infoDiv.appendChild(bathsSpan);
+      infoDiv.appendChild(addressSpan);
+
+      const contentP = document.createElement("p");
+      contentP.className = "text-xs text-gray-700";
+      contentP.textContent = listing.content;
+
+      div.appendChild(h2);
+      div.appendChild(priceP);
+      div.appendChild(infoDiv);
+      div.appendChild(contentP);
+
+      article.appendChild(img);
+      article.appendChild(div);
+
+      return article;
+    }
+
+    const listingsContainer = document.getElementById("listings");
+    listingsData.forEach((listing) => {
+      const card = createListingCard(listing);
+      listingsContainer.appendChild(card);
+    });
+  </script>
+</body>
+</html>
