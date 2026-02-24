@@ -1,0 +1,37 @@
+graph LR
+    %% Định nghĩa Style (Màu sắc)
+    classDef root fill:#cc0000,stroke:#333,stroke-width:4px,color:white,font-size:18px;
+    classDef role fill:#0066cc,stroke:#333,color:white;      %% Màu Xanh Dương cho Vai trò
+    classDef tool fill:#009900,stroke:#333,color:white;      %% Màu Xanh Lá cho Công cụ
+    classDef ind fill:#ff9900,stroke:#333,color:white;       %% Màu Cam cho Ngành
+    classDef detail fill:#f5f5f5,stroke:#666,color:#333,stroke-dasharray: 5 5; %% Màu trắng cho chi tiết
+
+    %% Gốc
+    Root(HỆ SINH THÁI<br/>KHOA HỌC DỮ LIỆU) :::root
+
+    %% Nhánh 1: Vai trò
+    Root --> R1(❶ CÁC VAI TRÒ CHÍNH) :::role
+    R1 --> R_DS(Data Scientist) :::role
+    R_DS --> R_DS_T(Nhiệm vụ: Model ML, Dự đoán) :::detail
+    R1 --> R_DA(Data Analyst) :::role
+    R_DA --> R_DA_T(Nhiệm vụ: Báo cáo, Visualization) :::detail
+    R1 --> R_DE(Data Engineer) :::role
+    R_DE --> R_DE_T(Nhiệm vụ: Pipeline, Big Data) :::detail
+
+    %% Nhánh 2: Công cụ
+    Root --> T1(❷ CÔNG CỤ & CÔNG NGHỆ) :::tool
+    T1 --> T_Lang(Ngôn ngữ lập trình) :::tool
+    T_Lang --> T_Py(Python / R / SQL) :::detail
+    T1 --> T_Viz(Trực quan hóa) :::tool
+    T_Viz --> T_Tab(Tableau / PowerBI) :::detail
+    T1 --> T_ML(Thư viện ML) :::tool
+    T_ML --> T_Lib(Scikit-learn / TensorFlow) :::detail
+
+    %% Nhánh 3: Ngành
+    Root --> I1(❸ NGÀNH ỨNG DỤNG) :::ind
+    I1 --> I_Fin(Tài chính) :::ind
+    I_Fin --> I_Fin_Ex(VD: Phát hiện gian lận) :::detail
+    I1 --> I_Hea(Y tế) :::ind
+    I_Hea --> I_Hea_Ex(VD: Chẩn đoán qua ảnh) :::detail
+    I1 --> I_Eco(E-commerce) :::ind
+    I_Eco --> I_Eco_Ex(VD: Hệ thống gợi ý) :::detail

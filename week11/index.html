@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập ISV2017</title>
+    <style>
+        tbody {
+            display: table-row-group;
+            vertical-align: middle;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+        }
+        tr {
+            display: table-row;
+            vertical-align: inherit;
+            unicode-bidi: isolate;
+            border-color: inherit;
+        }   
+        th {
+            display: table-cell;
+            vertical-align: inherit;
+            unicode-bidi: isolate;
+            border-color: inherit;
+            font-weight: bold;
+            text-align: center;
+        }
+        h2 {
+            display: block;
+            font-size: 1.5em;
+            margin-block-start: 0.83em;
+            margin-block-end: 0.83em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-weight: bold;
+            unicode-bidi: isolate;
+        }
+        body {
+            display: block;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: white;
+            margin: 8px;
+            padding: 0;
+        }
+        #topmenu {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+            unicode-bidi: isolate;
+        }
+        #topmenu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        #topmenu li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+        #topmenu li a:hover {
+            color: green;
+        }
+        #topmenu li {
+            display: inline-block;
+            padding: 0px 15px;
+        }
+    </style>
+</head>
+<body>
+    <nav id="topmenu">
+        <ul>
+            <li>
+                <a href="#">Trang chủ
+                </a>
+            </li>
+            <li>
+                <a href="#">Sách ©</a>
+            <li>
+                <a href="#">Tác giả ™</a>
+            </li>
+            <li>
+                <a href="#">Liên hệ</a>
+            </li>
+        </ul>
+     </nav>
+     <button onclick="toggleMenu()">Ẩn/Hiện Menu</button>
+     <h2>Bảng linh kiện máy tính ©</h2>
+     <table id="productTable" style="color: black;">
+            <tbody>
+            <tr>
+                <th>Tên linh kiện</th>                                 
+                <th>Giá (VND)</th>
+                <th>Đánh giá ☆</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; padding: 8px;">CPU Intel™ Core i5</td>
+                <td style="border: 1px solid black; padding: 8px;">5000000</td>
+                <td style="border: 1px solid black; padding: 8px;">4.5/5</td>
+            <tr>
+                <td style="border: 1px solid black; padding: 8px;">Ổ cứng SSD 256GB</td>
+                <td style="border: 1px solid black; padding: 8px;">1200000</td>
+                <td style="border: 1px solid black; padding: 8px;">4.8/5</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black; padding: 8px;">RAM DDR4 8GB</td>
+                <td style="border: 1px solid black; padding: 8px;">800000</td>
+                <td style="border: 1px solid black; padding: 8px;">4.0/5</td>
+            </tr>
+         </tbody>
+     </table>
+     <button onclick="changeTextColor()">Đổi màu chữ</button>
+     <button onclick="sortByPrice()">Sắp xếp theo giá</button>  <script>
+        function toggleMenu() {
+            const menu = document.getElementById('topmenu');
+            if (menu.style.display === 'none') {
+                menu.style.display = 'block';
+            } else {
+                menu.style.display = 'none';
+            }
+        }
+
+        function changeTextColor() {
+            const table = document.getElementById('productTable');
+            table.style.color = table.style.color === 'black' ? 'blue' : 'black' ? 'red' : 'black';
+        }
+
+        function sortByPrice() {
+            const table = document.getElementById('productTable');
+            const rows = Array.from(table.querySelectorAll('tr')).slice(1); // Exclude header row
+            rows.sort((a, b) => {
+                const priceA = parseInt(a.cells[1].textContent);
+                const priceB = parseInt(b.cells[1].textContent);
+                return priceA - priceB;
+            });
+            rows.forEach(row => table.appendChild(row)); // Re-append rows in sorted order
+        }
+    </script>
+    <form style="width: 80%; margin: 20px auto; border: 1px solid black; padding: 20px;">
+        <h3>Biểu mẫu và liên hệ</h3>
+        <label for="name" >Họ và tên:</label><br>
+        <input type="text" id="name" name="name" required width="100%"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="message">Tin nhắn:</label><br>
+        <textarea id="message" name="message" rows="4" required></textarea><br>
+        <input type="submit" value="Gửi">
+    </form>
+</body>
+</html>

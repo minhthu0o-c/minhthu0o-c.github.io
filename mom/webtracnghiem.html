@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Trắc Nghiệm Tiếng Việt & Toán</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .question-card {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .poem-text {
+            font-style: italic;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 3px solid #ccc;
+            margin: 10px 0;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            max-width: 500px;
+            min-height: 150px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            color: #6c757d;
+            margin-bottom: 15px;
+            border: 1px dashed #adb5bd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Styles for multiple choice */
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #e9ecef;
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        /* Styles for Arrange Letters Question */
+        .arrange-container {
+            margin-top: 10px;
+        }
+        
+        .letters-pool, .answer-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            min-height: 50px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .letters-pool {
+            background-color: #e3f2fd;
+            border: 2px dashed #90caf9;
+        }
+
+        .answer-box {
+            background-color: #fff9c4;
+            border: 2px dashed #fff59d;
+        }
+
+        .letter-tile {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            background-color: #fff;
+            color: #1976d2;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: 2px solid #1976d2;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            user-select: none;
+            transition: transform 0.1s;
+        }
+
+        .letter-tile:active {
+            transform: scale(0.95);
+        }
+
+        .correct-text-msg {
+            color: #155724;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Result Classes */
+        .correct-answer {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .wrong-answer {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: white;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        #result-box {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e2e3e5;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Ôn Tập Kiến Thức</h1>
+    <div id="quiz-container"></div>
+    <button class="submit-btn" onclick="submitQuiz()">Nộp Bài & Chấm Điểm</button>
+    <div id="result-box"></div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1, type: "multiple",
+            text: "Những chiến sĩ bảo vệ tổ quốc còn được gọi là gì?",
+            options: ["A. giáo viên", "B. kĩ sư", "C. bộ đội", "D. cầu thủ"],
+            answer: 2
+        },
+        {
+            id: 2, type: "multiple",
+            text: "Đáp án nào dưới đây chỉ gồm các từ ngữ chỉ trang phục?",
+            options: [
+                "A. đôi dép, thắt lưng, bó hoa", 
+                "B. quần vải, đôi giày, trang trí", 
+                "C. áo khoác, mũ len, khăn quàng", 
+                "D. đôi tất, găng tay, phục vụ"
+            ],
+            answer: 2
+        },
+        {
+            id: 3, type: "multiple",
+            text: "Khổ thơ dưới đây nhắc đến dấu thanh nào?<br><div class='poem-text'>Dấu nào cũng nổi trên<br>Riêng em thì chìm dưới<br>Mọi người đừng chê em<br>Tuy nhỏ nhưng nặng kí.</div>(Nguyễn Lãm Thắng)",
+            options: ["A. dấu huyền", "B. dấu ngã", "C. dấu nặng", "D. dấu hỏi"],
+            answer: 2
+        },
+        {
+            id: 4, type: "multiple",
+            text: "\"Tê giác\" có thể ghép với đáp án nào để tạo thành câu đúng?",
+            options: [
+                "A. nhặt thóc trên sân", 
+                "B. sống trong khu rừng", 
+                "C. ấp trứng trong tổ", 
+                "D. mò cá trên đồng"
+            ],
+            answer: 1
+        },
+        {
+            id: 5, type: "multiple",
+            imageText: "<img src='image/cau5.jpg' alt='Hình ảnh một chú ong đang hút mật từ hoa trong vườn' style='max-width: 100%; height: auto;'>",
+            text: "Câu nào mô tả đúng hình ảnh sau?",
+            options: [
+                "A. Những chú ong chăm chỉ tìm mật trong vườn.", 
+                "B. Những chú bướm đang hút mật trong vườn.", 
+                "C. Những chú chim đang kiếm ăn trong vườn.", 
+                "D. Những chú ong vàng đang làm tổ trong vườn."
+            ],
+            answer: 0
+        },
+        {
+            id: 6, type: "multiple",
+            text: "Chọn vần thích hợp điền vào chỗ trống.<br>Các từ ngữ \"biết ơn\", \"tiết học\", \"thân thiết\", \"viết chữ\" có chung vần .....",
+            options: ["A. iên", "B. iêt", "C. iêc"],
+            answer: 1
+        },
+        {
+            id: 7, type: "multiple",
+            text: "Lớp 1B có một bạn học sinh mới chuyển đến. Bạn ấy có vẻ nhút nhát và chưa quen ai. Cô giáo nhờ lớp trưởng ra làm quen với bạn. Bạn lớp trưởng nên nói gì?",
+            options: [
+                "A. Chào cậu, tớ là lớp trưởng. Rất vui được làm quen với cậu. Cậu có cần tớ giúp gì không?", 
+                "B. Tại sao cậu lại chuyển đến trường này vậy?", 
+                "C. Nhìn cậu có vẻ ít nói nhỉ.", 
+                "D. Cậu có biết làm bài tập toán hôm qua không?"
+            ],
+            answer: 0
+        },
+        {
+            id: 8, type: "multiple",
+            imageText: "<img src='image/cau8.jpg' alt='Hình ảnh các con vật: Thỏ, Gấu trúc, Mèo, Sóc, Trâu, Hổ, Chuột, Corgi' style='max-width: 100%; height: auto;'>",
+            text: "Trong hình ảnh trên có ...... con vật có tên chứa vần \"âu\"?",
+            options: ["A. 1", "B. 2", "C. 3", "D. 4"],
+            answer: 1
+        },
+        {
+            id: 9, type: "multiple",
+            text: "Chọn chữ thích hợp lần lượt điền vào chỗ trống sau:<br>Thời tiết mùa đông [...]ất lạnh [...]á.",
+            options: ["A. r- r", "B. gi- d", "C. r- gi", "D. gi - gi"],
+            answer: 2 
+        },
+        {
+            id: 10, type: "multiple",
+            imageText: "<img src='image/cau10.jpg' alt='Ảnh Toán tư duy: Các phép tính với Hình tròn, Hình vuông, Hình tam giác' style='max-width: 100%; height: auto;'>",
+            text: "Dựa vào các phép tính trên, hình tam giác, hình vuông và hình tròn có giá trị là bao nhiêu?",
+            options: [
+                "A. Tam giác: 5, Hình vuông: 3, Hình tròn: 7", 
+                "B. Tam giác: 3, Hình vuông: 5, Hình tròn: 7", 
+                "C. Tam giác: 7, Hình vuông: 3, Hình tròn: 5", 
+                "D. Tam giác: 5, Hình vuông: 7, Hình tròn: 3"
+            ],
+            answer: 0 // Đáp án A là đúng (Tam giác: 5, Vuông: 3, Tròn: 7)
+        },
+        {
+            id: 11, type: "multiple",
+            imageText: "[Ảnh ô chữ chứa các chữ cái]",
+            text: "Ô chữ trên có .... từ chỉ loài hoa.",
+            options: ["A. 1", "B. 2", "C. 3", "D. 4"],
+            answer: 2 
+        },
+        {
+            id: 12, type: "multiple",
+            text: "Câu nào dưới đây nói về đồ vật?",
+            options: [
+                "A. Bố đi làm ở xa nhà.",
+                "B. Quả na ở chợ rất to và ngọt.",
+                "C. Khăn len của bé mềm và ấm.",
+                "D. Hà mã là con vật to lớn."
+            ],
+            answer: 2
+        },
+        {
+            id: 14, type: "multiple",
+            imageText: "<img src='image/cau14.jpg' alt='Ảnh 4 bạn học sinh: Khánh, Dũng, Mai, Chi' style='max-width: 100%; height: auto;'>",
+            text: "Sắp xếp tên các bạn sau theo đúng thứ tự chữ cái trong bảng chữ cái.",
+            options: [
+                "A. Khánh; Dũng; Mai; Chi",
+                "B. Mai; Chi; Khánh; Dũng",
+                "C. Chi; Dũng; Mai; Khánh"
+            ],
+            answer: 2
+        },
+        {
+            id: 15, type: "multiple",
+            text: "Sắp xếp các tiếng sau để tạo thành câu hoàn chỉnh.<br>lăng/ chùm / nở/ biếc./ tím / bằng / Những",
+            options: [
+                "A. Những chùm bằng lăng tím biếc nở.", 
+                "B. Những chùm bằng lăng nở tím biếc.", 
+                "C. Những bằng lăng nở chùm tím biếc."
+            ],
+            answer: 1
+        },
+        {
+            id: 16, type: "multiple",
+            imageText: "<img src='image/cau16.jpg' alt='Ảnh người mẹ đang quạt cho em bé ngủ trên võng' style='max-width: 100%; height: auto;'>",
+            text: "Hình ảnh sau có thể minh hoạ cho đoạn thơ nào dưới đây?",
+            options: [
+                "A. Những cánh đồng bình yên<br>Nằm phơi mình ở giữa<br>Những con sông xanh, hồng<br>Uốn quanh trăm dải lụa.",
+                "B. Chúng em theo mẹ<br>Nón lá ra đồng<br>Ngàn con suối nhỏ<br>Cùng chảy về sông.",
+                "C. Lời ru có gió mùa thu<br>Bàn tay mẹ quạt mẹ đưa gió về<br>Những ngôi sao thức ngoài kia<br>Chẳng bằng mẹ đã thức vì chúng con."
+            ],
+            answer: 2
+        },
+        {
+            id: 18, type: "multiple",
+            imageText: "<img src='image/cau18.jpg' alt='Ảnh bé gái ăn dưa hấu và nghĩ về người trồng cây' style='max-width: 100%; height: auto;'>",
+            text: "Hình ảnh sau thích hợp mô tả câu tục ngữ nào?",
+            options: [
+                "A. Uống nước nhớ nguồn.",
+                "B. Ăn quả nhớ kẻ trồng cây.",
+                "C. Ăn trông nồi ngồi trông hướng.",
+                "D. Học ăn, học nói, học gói, học mở."
+            ],
+            answer: 1
+        },
+        {
+            id: 25, type: "multiple",
+            imageText: "<img src='image/cau25.jpg' alt='Ảnh 1: Bó hoa | Ảnh 2: Bắp ngô | Ảnh 3: Rau cải' style='max-width: 100%; height: auto;'>",
+            text: "Hãy ghép hình ảnh với vần tương ứng:",
+            options: ["A. 1b 2c 3a", "B. 1c 2b 3a", "C. 1a 2c 3b"],
+            answer: 2
+        },
+        {
+            id: 28, type: "arrange",
+            text: "Sắp xếp các chữ sau để tạo thành từ chỉ nghề nghiệp. (Nhấn vào các chữ cái bên dưới để ghép)",
+            letters: ['i', 'P', 'h', 'c', 'g', 'ô', 'n'],
+            correctAnswer: "Phicông",
+            displayAnswer: "Phi công"
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+
+    // Hàm di chuyển chữ cái qua lại giữa khay và ô đáp án
+    function moveLetter(element, targetId, originId) {
+        const parentId = element.parentElement.id;
+        if (parentId === originId) {
+            document.getElementById(targetId).appendChild(element);
+        } else {
+            document.getElementById(originId).appendChild(element);
+        }
+    }
+
+    function loadQuiz() {
+        quizData.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.className = 'question-card';
+            
+            let htmlContent = `<div class="question-title">Câu ${q.id}: ${q.text}</div>`;
+            
+            if (q.imageText) {
+                htmlContent += `<div class="image-placeholder">${q.imageText}</div>`; 
+            }
+
+            if (q.type === "multiple") {
+                // Render dạng trắc nghiệm
+                htmlContent += `<ul class="options-list">`;
+                q.options.forEach((opt, optIndex) => {
+                    htmlContent += `
+                        <li class="option-item">
+                            <label class="option-label" id="label-q${index}-o${optIndex}">
+                                <input type="radio" name="question${index}" value="${optIndex}">
+                                ${opt}
+                            </label>
+                        </li>
+                    `;
+                });
+                htmlContent += `</ul>`;
+            } else if (q.type === "arrange") {
+                // Render dạng sắp xếp chữ cái
+                htmlContent += `
+                    <div class="arrange-container" id="arrange-container-${index}">
+                        <div style="font-size: 0.9em; color: #666;">Khay chữ cái:</div>
+                        <div class="letters-pool" id="pool-q${index}">
+                `;
+                q.letters.forEach((letter, lIndex) => {
+                    htmlContent += `<span class="letter-tile" onclick="moveLetter(this, 'answer-q${index}', 'pool-q${index}')">${letter}</span>`;
+                });
+                htmlContent += `
+                        </div>
+                        <div style="font-size: 0.9em; color: #666;">Ô đáp án của bạn:</div>
+                        <div class="answer-box" id="answer-q${index}"></div>
+                        <div class="correct-text-msg" id="msg-q${index}">Đáp án đúng là: ${q.displayAnswer}</div>
+                    </div>
+                `;
+            }
+
+            questionElement.innerHTML = htmlContent;
+            quizContainer.appendChild(questionElement);
+        });
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        
+        quizData.forEach((q, index) => {
+            if (q.type === "multiple") {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                
+                q.options.forEach((_, optIndex) => {
+                    document.getElementById(`label-q${index}-o${optIndex}`).classList.remove('correct-answer', 'wrong-answer');
+                });
+
+                if (selectedOption) {
+                    const selectedValue = parseInt(selectedOption.value);
+                    document.getElementById(`label-q${index}-o${q.answer}`).classList.add('correct-answer');
+                    if (selectedValue === q.answer) {
+                        score++;
+                    } else {
+                        document.getElementById(`label-q${index}-o${selectedValue}`).classList.add('wrong-answer');
+                    }
+                } else {
+                    document.getElementById(`label-q${index}-o${q.answer}`).classList.add('correct-answer');
+                }
+            } else if (q.type === "arrange") {
+                // Chấm điểm cho dạng sắp xếp
+                const answerBox = document.getElementById(`answer-q${index}`);
+                const userWord = Array.from(answerBox.children).map(span => span.innerText).join('');
+                
+                if (userWord.toLowerCase() === q.correctAnswer.toLowerCase()) {
+                    score++;
+                    answerBox.style.backgroundColor = '#d4edda';
+                    answerBox.style.borderColor = '#c3e6cb';
+                } else {
+                    answerBox.style.backgroundColor = '#f8d7da';
+                    answerBox.style.borderColor = '#f5c6cb';
+                    document.getElementById(`msg-q${index}`).style.display = 'block';
+                }
+            }
+        });
+
+        const resultBox = document.getElementById('result-box');
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = `Bạn đã làm đúng ${score} / ${quizData.length} câu.`;
+        resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>
